@@ -1,0 +1,22 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+        <title>{% trans 'Permissions' %}</title>
+    {% endblock title %}
+
+
+
+</head>
+<body {% block body_class %}{% endblock body_class %} >
+    {% block header %}
+    {% endblock header %}
+{% block breadcrumbs %}
+{% endblock breadcrumbs %}
+{% block content %}
+{% endblock %}
+
+</body>
+</html>
