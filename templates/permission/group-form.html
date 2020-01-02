@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+{% load i18n %}
+
+{% block body_class %}{{ block.super }} create-page catalogue{% endblock %}
+
+{% block title %}
+    {{ title }} | {% trans "Permissions" %} | {{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li>
+            <a href="{% url 'permission-role-list' %}">{% trans "Roles" %}</a>
+        </li>
+
+        <li class="active">
+            {% if form.instance.id %}
+                {% trans 'Edit Role' %}
+            {% else %}
+                {% trans 'Add New Role' %}
+            {% endif %}
+        </li>
+    </ul>
+{% endblock %}
+
+{% block headertext %}{{ title }}{% endblock %}
+
+{% block content %}
+    <form action="{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" method="post"
+          class="form-stacked wysiwyg fixed-actions" enctype="multipart/form-data" data-behaviour="affix-nav-errors"
+          autocomplete="off">
+        <table class="table table-striped table-bordered">
+            <form>
+                {% csrf_token %}{{ form.as_table }}
+                <button type="submit">submit</button>
+
+
+            </form>
+        </table>
+    </form>
+{% endblock content %}
