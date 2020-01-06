@@ -117,4 +117,3 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-from .defaults import *
