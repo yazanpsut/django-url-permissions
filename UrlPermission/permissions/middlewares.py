@@ -6,9 +6,9 @@ from django.utils.deprecation import MiddlewareMixin
 
 class UrlPermissionMiddleware(MiddlewareMixin):
     def process_request(self, request):
-        if request.user.is_superuser and settings.PERMISSION_SUPERUSER_PASS:
+        if request.user.is_superuser and getattr(settings, 'PERMISSION_SUPERUSER_PASS', True):
             return
-        elif request.user.is_staff and settings.PERMISSION_STAFF_PASS:
+        elif request.user.is_staff and getattr(settings, 'PERMISSION_STAFF_PASS', False):
             return
 
         run_permissions = False
@@ -18,11 +18,10 @@ class UrlPermissionMiddleware(MiddlewareMixin):
                 break
         # Handle Excludes
         if run_permissions:
-            for out_path in settings.PERMISSION_EXCLUDED_PATHS:
+            for out_path in getattr(settings,'PERMISSION_EXCLUDED_PATHS', []):
                 run_permissions = run_permissions and not str(request.path_info).__contains__(out_path)
                 if not run_permissions:
                     break
-
         # check permissions
         if run_permissions:
             if not request.user.is_authenticated:
@@ -33,6 +32,10 @@ class UrlPermissionMiddleware(MiddlewareMixin):
             if not request.user.userrole_set.filter(role__roleurl__url_name=url_name).exists():
                 return HttpResponseForbidden()
 
-        if not (str(request.path_info).__contains__('/en/search/') or str(request.path_info).__contains__(
-                '/ar/search/')):
+        run_extra = False
+        for in_path in getattr(settings, 'PERMISSION_EXTRA_URLS', []):
+            run_extra = run_extra or str(request.path_info).__contains__(in_path)
+            if run_extra:
+                break
+        if run_extra:
             settings.PERMISSION_EXTRA_FUNCTION(request)
