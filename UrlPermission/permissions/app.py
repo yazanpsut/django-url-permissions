@@ -3,7 +3,7 @@ from django.conf.urls import url
 
 
 class PermissionsApplication(AppConfig):
-    name = 'permissions'
+    name = 'UrlPermission.permissions'
     verbose_name = "Permissions using urls"
 
 

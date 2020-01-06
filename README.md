@@ -1,6 +1,6 @@
 # django-url-permissions
 
-Django url permissions was created to handle user role permission by url, so if you need to create a serten role and give that role permission to that url, then you can use this package.
+Django url permissions was created to handle user role permission by url, so if you need to create a certain role and give that role permission to that url, then you can use this package.
 
 What does it do?
 - 

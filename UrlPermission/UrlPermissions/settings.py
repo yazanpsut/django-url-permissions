@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'permissions'
+    'UrlPermission.permissions'
 ]
 
 MIDDLEWARE = [
@@ -47,7 +47,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'permissions.middlewares.UrlPermissionMiddleware'
+    'UrlPermission.permissions.middlewares.UrlPermissionMiddleware'
 ]
 
 ROOT_URLCONF = 'UrlPermissions.urls'
@@ -55,7 +55,7 @@ ROOT_URLCONF = 'UrlPermissions.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
+        'DIRS': [os.path.join(BASE_DIR, 'UrlPermission/templates')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'UrlPermissions.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, '../../db.sqlite3'),
     }
 }
 
@@ -117,24 +117,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-PERMISSION_PATHS = [
-    'dont-allow',
-
-]
-PERMISSION_EXCLUDED_PATHS = [
-    'logout',
-    'login',
-]
-
-PERMISSION_SUPERUSER_PASS = True
-PERMISSION_STAFF_PASS = False
-PERMISSION_EXTRA_URLS = [
-    '/ar/search/',
-    '/en/search/',
-]
-from permissions.extras import clear_session
-from permissions.utils import get_url_names, get_users
-
-PERMISSION_EXTRA_FUNCTION = clear_session
-PERMISSION_URL_NAMES = get_url_names
-PERMISSION_APPLYED_USERS = get_users
+from .defaults import *

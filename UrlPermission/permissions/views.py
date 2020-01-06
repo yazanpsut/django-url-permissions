@@ -2,26 +2,26 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.views.decorators.cache import never_cache
 
-from permissions.forms import RoleForm
-from permissions.models import Role, RoleUrl, UserRole
+from UrlPermission.permissions.forms import RoleForm
+from UrlPermission.permissions.models import Role, RoleUrl, UserRole
 
 
 class RoleListView(generic.ListView):
     allow_empty = True
 
-    template_name = 'permission/group-list.html'
+    template_name = 'permission/../templates/permission/group-list.html'
     model = Role
     context_object_name = 'items'
 
 
 class RoleDeleteView(generic.DeleteView):
-    template_name = 'permission/group-delete.html'
+    template_name = 'permission/../templates/permission/group-delete.html'
     model = Role
     success_url = reverse_lazy("permission-role-list")
 
 
 class RoleCreateView(generic.CreateView):
-    template_name = 'permission/group-form.html'
+    template_name = 'permission/../templates/permission/group-form.html'
     form_class = RoleForm
     model = Role
     success_url = reverse_lazy("permission-role-list")

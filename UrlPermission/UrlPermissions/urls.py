@@ -20,7 +20,7 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('permissions/', include("permissions.urls")),
+    path('permissions/', include("UrlPermission.permissions.urls")),
     url('dont-allow', TemplateView.as_view(template_name='dummy.html'), name="dummy"),
     url('ˆ/', TemplateView.as_view(template_name='dummy.html'), name="index")
 ]

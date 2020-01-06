@@ -1,9 +1,8 @@
 from django import forms
 from django.conf import settings
-from django.contrib.auth import get_user_model
 
-from permissions.models import Role
-from permissions.utils import get_url_names
+from UrlPermission.permissions.models import Role
+from UrlPermission.permissions.utils import get_url_names
 
 
 def get_urls():
